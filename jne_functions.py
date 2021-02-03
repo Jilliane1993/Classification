@@ -17,13 +17,12 @@ def classifiers_2(model, param_grid, X, y):
     global rand_s, X_train, X_test, y_train, y_test
     X=X
     y=y
-    numeric_features=['campaign','pdays','previous','emp.var.rate',
-                      'cons.price.idx','cons.conf.idx','euribor3m',
-                      'nr.employed']
+    numeric_features=['campaign','previous','emp.var.rate',
+                      'cons.price.idx','cons.conf.idx','euribor3m','nr.employed']
     numeric_transformer= Pipeline(steps=[ ('ss',StandardScaler())])
 
     categorical_features=['job','marital','education','default',
-                          'housing','loan','day_of_week','age_group','month']
+                          'housing','loan','day_of_week','age_group','month','poutcome']
     categorical_transformer=OneHotEncoder(handle_unknown='error',drop='first')
 
     preprocessor= ColumnTransformer(
@@ -71,8 +70,8 @@ def classifiers_no_stan(model, param_grid, X, y):
     X=X
     y=y
 
-    categorical_features=['job','marital','education','default',
-                          'housing','loan','month','day_of_week','age_group']
+    categorical_features=['job','marital','education', 'default','month',
+                          'housing','loan','day_of_week','age_group','poutcome']
     categorical_transformer=OneHotEncoder(handle_unknown='error',drop='first')
 
     preprocessor= ColumnTransformer(
@@ -85,7 +84,7 @@ def classifiers_no_stan(model, param_grid, X, y):
 
     X_train, X_test, y_train, y_test= train_test_split(X,y, test_size=0.2, random_state=1, stratify=y)
 
-    rand_s=RandomizedSearchCV(pipe,param_distributions=param_grid,cv=5, scoring=f1, n_iter=25)
+    rand_s=RandomizedSearchCV(pipe,param_grid,cv=5, scoring=f1, n_iter=25)
     rand_s.fit(X_train,y_train)
     return rand_s.best_params_
 
@@ -102,8 +101,8 @@ def classifiers_no_stan_oversample(model, param_grid, X, y):
     X=X
     y=y
 
-    categorical_features=['job','marital','education','default',
-                          'housing','loan','month','day_of_week','age_group']
+    categorical_features=['job','marital','education','default','month',
+                          'housing','loan','day_of_week','age_group','poutcome']
     categorical_transformer=OneHotEncoder(handle_unknown='error',drop='first')
 
     preprocessor= ColumnTransformer(
