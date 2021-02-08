@@ -44,15 +44,22 @@ def make_confusion_matrix(model, threshold=0.5):
     import matplotlib.pyplot as plt
     import seaborn as sns
     from sklearn.metrics import confusion_matrix
+    import numpy as np
     
     y_predict = (model.predict_proba(X_test)[:, 1] >= threshold)
     deposit_confusion = confusion_matrix(y_test, y_predict)
     plt.figure(dpi=80)
-    sns.heatmap(deposit_confusion, cmap=plt.cm.Blues, annot=True, square=True, fmt='d',
-                xticklabels=['no', 'yes'],
-                yticklabels=['no', 'yes']);
-    plt.xlabel('prediction')
-    plt.ylabel('actual')
+    group_counts=['{0:0.0f}'.format(value) for value in deposit_confusion.flatten()]
+    group_perc=['{0:.2%}'.format(value) for value in
+                deposit_confusion.flatten()/np.sum(deposit_confusion)]
+    labels=[f'{v1}\n{v2}' for v1,v2 in zip(group_counts,group_perc)]
+    labels=np.asarray(labels).reshape(2,2)
+    sns.heatmap(deposit_confusion, cmap=plt.cm.Blues, annot=labels, square=True, fmt='',
+                xticklabels=['No', 'Yes'],
+                yticklabels=['No', 'Yes']);
+    plt.xlabel('Prediction').set_color('black')
+    plt.ylabel('Actual').set_color('black')
+    plt.tick_params(colors='black')
     
     
 def classifiers_no_stan(model, X, y):
