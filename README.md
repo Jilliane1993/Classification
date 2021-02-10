@@ -4,7 +4,7 @@ I used several machine learning algorithms to predict term deposit sign up using
 
 ## SQL, Exploration, Data Cleaning:
 
-I first created a postgresql database to complete some initial data exploration such as looking at the point at which further contact during the telemarketing campaign ceased to yield any term deposit sign-ups and which professions had the highest amount of sign-ups. I checked for null values and droped duplicate rows as well as began some feature engineering. UCI states the observations are ordered by date from May 2008-November 2010 so I was able to add in the year for each observation. I also created new features by binning existing features such as turning individual ages into age groups. As part of my data exploration I also graphed mulitple features looking at the imbalance between the number of people who did and did not sign up for a term deposit. 
+I first created a postgresql database to complete some initial data exploration such as looking at the point at which further contact during the telemarketing campaign ceased to yield any term deposit sign-ups and which professions had the highest amount of sign-ups. I checked for null values and droped duplicate rows as well as began some feature engineering. UCI states the observations are ordered by date from May 2008-November 2010 so I was able to add in the year for each observation. I also created new features by binning existing features such as turning individual ages into age groups. As part of my data exploration I also graphed mulitple features looking at the imbalance between the number of people who did and did not sign up for a term deposit. My postgresql database creation, data exploration, and data cleaning can be found in [this notebook](Bank_sql.ipynb)
 
 ## Dealing with class imbalance:
 
@@ -16,12 +16,16 @@ Since there was slightly less than 8 times as many people that declined signing 
 
 ## Models compared:
 
-1. Logistic Regression
-2. Bernoulli Naive Bayes
-3. Random Forest
-4. Balanced Random Forest
-5. XGBoost
-6. CatBoost
+1. [Logistic Regression](Bank_sql.ipynb)
+2. [Bernoulli Naive Bayes](Bank_Naive_Bayes.ipynb)
+3. [Random Forest](Bank_RF.ipynb)
+4. [Balanced Random Forest](Bank_RF.ipynb)
+5. [XGBoost](XGBoost.ipynb)
+6. [CatBoost](Catboost.ipynb)
+
+[Direct comparison of ROC AUC model performance](ROC_AUC.ipynb)
+
+[Main functions and pipelines used](jne_functions.py)
 
 ## CatBoost Classifier:
 
